@@ -1,8 +1,10 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import connectdb from "./lib/db";
-import user from "./models/user.model";
+import userModel from "./models/user.model";
 import bcrypt from "bcryptjs";
+import Google from "next-auth/providers/google";
+import { connect } from "mongoose";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -22,10 +24,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           const email = credentials?.email as string;
           const password = credentials?.password as string;
-          const userDoc = await user.findOne({ email });
+          const userDoc = await userModel.findOne({ email });
 
           if (!userDoc) {
             throw new Error("User does not exist");
+          }
+
+          if (!userDoc.password) {
+             throw new Error("This account has no password. Please login with Google.");
           }
           const isMatch = await bcrypt.compare(password, userDoc.password);
 
@@ -45,9 +51,32 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
       },
     }),
+    Google({
+      clientId : process.env.GOOGLE_CLIENT_ID ,
+      clientSecret : process.env.GOOGLE_CLIENT_SECRET
+    })
   ],
 
   callbacks: {
+    // this parameter user is user returned by google after verification from its database
+    async signIn({user , account}){
+      if(account?.provider == "google"){
+        await connectdb()
+        let dbUser = await userModel.findOne({email : user.email})
+        if(!dbUser){
+          dbUser = await userModel.create({
+             name : user.name ,
+             email : user.email,
+             image : user.image || undefined
+          })
+        }
+
+        user.id = dbUser._id.toString() ,
+        user.role = dbUser.role
+      }
+      return true
+    },
+
     jwt({ token, user }) {
       if (user) {
         ((token.id = user.id),
