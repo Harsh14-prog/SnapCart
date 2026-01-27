@@ -41,7 +41,8 @@ function RegisterForm({ prevStep }: propType) {
             const result=await axios.post("/api/auth/register",{
                 name,email,password
             })
-            console.log(result.data)
+            // console.log(result.data)
+            router.push("/login")
             setLoading(false)
         } catch (error) {
             console.log(error)
@@ -155,7 +156,7 @@ function RegisterForm({ prevStep }: propType) {
 
         {/* Google */}
         <div
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google" , {callbackUrl : "/"})}
           className="w-full flex items-center justify-center gap-3 border border-gray-300 hover:bg-gray-50 py-3 rounded-xl text-gray-700 font-medium transition-all duration-200"
         >
           <Image src={googleImage} width={20} height={20} alt="google" />

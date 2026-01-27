@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 const url = process.env.MONGODB_URL;
 
-console.log("MONGO URL:", process.env.MONGODB_URL);
-
+// console.log("MONGO URL:", process.env.MONGODB_URL);
 
 if(!url){
     throw new Error("db error")
