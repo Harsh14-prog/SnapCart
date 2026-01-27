@@ -31,7 +31,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
 
           if (!userDoc.password) {
-             throw new Error("This account has no password. Please login with Google.");
+            throw new Error(
+              "This account has no password. Please login with Google.",
+            );
           }
           const isMatch = await bcrypt.compare(password, userDoc.password);
 
@@ -52,29 +54,36 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
     Google({
-      clientId : process.env.GOOGLE_CLIENT_ID ,
-      clientSecret : process.env.GOOGLE_CLIENT_SECRET
-    })
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
   ],
 
   callbacks: {
     // this parameter user is user returned by google after verification from its database
-    async signIn({user , account}){
-      if(account?.provider == "google"){
-        await connectdb()
-        let dbUser = await userModel.findOne({email : user.email})
-        if(!dbUser){
+    async signIn({ user, account }) {
+      if (account?.provider === "google") {
+        await connectdb();
+
+        let dbUser = await userModel.findOne({ email: user.email });
+
+        if (!dbUser) {
           dbUser = await userModel.create({
-             name : user.name ,
-             email : user.email,
-             image : user.image || undefined
-          })
+            name: user.name,
+            email: user.email,
+            image: user.image,
+          });
+        } else if (!dbUser.image && user.image) {
+          dbUser.image = user.image;
+          await dbUser.save();
         }
 
-        user.id = dbUser._id.toString() ,
-        user.role = dbUser.role
+        user.id = dbUser._id.toString();
+        user.role = dbUser.role;
+        user.image = dbUser.image;
       }
-      return true
+
+      return true;
     },
 
     jwt({ token, user }) {
@@ -82,7 +91,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         ((token.id = user.id),
           (token.name = user.name),
           (token.email = user.email),
-          (token.role = user.role));
+          (token.role = user.role),
+          (token.image = user.image));
       }
       return token;
     },
@@ -92,7 +102,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         ((session.user.id = token.id as string),
           (session.user.name = token.name as string),
           (session.user.email = token.email as string),
-          (session.user.role = token.role as string));
+          (session.user.role = token.role as string),
+          (session.user.image = token.image as string));
       }
       return session;
     },

@@ -4,7 +4,8 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, Bike, User, UserCog, Phone } from "lucide-react";
 import axios from "axios";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+
 
 
 function EditRoleMobile() {
@@ -19,6 +20,9 @@ function EditRoleMobile() {
 
   const [mobile, setMobile] = useState("");
 
+  const router = useRouter();
+
+
   const handleEdit = async () => {
    try {
     const result = await axios.post("/api/user/edit-role-mobile" , {
@@ -26,7 +30,7 @@ function EditRoleMobile() {
          mobile 
      })
     //console.log(result.data)
-    redirect("/")
+    router.push("/")
    } 
    catch (error) {
      console.log(error)
@@ -34,7 +38,7 @@ function EditRoleMobile() {
   }
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col items-center justify-start p-6 bg-gradient-to-br from-green-50 via-white to-green-100 overflow-hidden">
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-start p-6 bg-linear-to-br from-green-50 via-white to-green-100 overflow-hidden">
  
       <div className="absolute inset-0 -z-10">
         <div className="absolute -top-40 -left-40 w-105 h-105 bg-green-300/30 rounded-full blur-3xl" />

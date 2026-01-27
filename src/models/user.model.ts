@@ -1,11 +1,12 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 
 export interface IUser extends Document {
+  id? : mongoose.Types.ObjectId
   name: string;
   email: string;
   password?: string;
   mobile?: string;
-  role: "user" | "deliveryboy" | "admin";
+  role: "user" | "deliveryBoy" | "admin";
   image? : string | null
 }
 
@@ -17,7 +18,7 @@ const userSchema = new Schema<IUser>(
     mobile: { type: String },
     role: {
       type: String,
-      enum: ["user", "deliveryboy", "admin"],
+      enum: ["user", "deliveryBoy", "admin"],
       default: "user",
     },
     image : {type : String}

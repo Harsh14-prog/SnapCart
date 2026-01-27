@@ -28,24 +28,32 @@ function Login() {
   const session = useSession()
   // console.log(session)
 
-  const handleLogin = async (e: FormEvent) => {
-    e.preventDefault();
+const handleLogin = async (e: FormEvent) => {
+  e.preventDefault();
 
-    if (loading) return;
-    setLoading(true);
+  if (loading) return;
+  setLoading(true);
 
-    try {
-      await signIn("credentials", {
-        email,
-        password,
-      });
-      router.push("/")
-    } catch (error) {
-      console.log(error);
-    } finally {
+  try {
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false, // 🔥 VERY IMPORTANT
+    });
+
+    if (res?.error) {
+      console.log("Login failed:", res.error);
       setLoading(false);
+      return;
     }
-  };
+
+    router.push("/"); 
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const formValidation = email !== "" && password !== "";
 
