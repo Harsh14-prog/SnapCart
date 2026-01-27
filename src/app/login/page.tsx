@@ -26,7 +26,7 @@ function Login() {
   const router = useRouter();
 
   const session = useSession()
-  console.log(session)
+  // console.log(session)
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
