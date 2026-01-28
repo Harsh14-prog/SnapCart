@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function proxy(req : NextRequest){
    
-    const publicRoutes = ["/login" , "/register" , "/api/auth" , "/fevicon.ico" , "/_next"]
+    const publicRoutes = ["/login" , "/register" , "/api/auth" , "/favicon.ico" , "/_next"]
     const {pathname} = req.nextUrl ;
 
     if(publicRoutes.some((path) => pathname.startsWith(path))){
@@ -19,6 +19,19 @@ export async function proxy(req : NextRequest){
         // console.log(loginUrl)
         loginUrl.searchParams.set("callbackUrl" , req.url)
         return NextResponse.redirect(loginUrl)
+    }
+
+    const role = token.role
+    if(pathname.startsWith("/user") && role != "user"){
+        return NextResponse.redirect(new URL("/unauthorized" , req.url))
+    }
+
+    if(pathname.startsWith("/delivery") && role != "deliveryBoy"){
+        return NextResponse.redirect(new URL("/unauthorized" , req.url))
+    }
+
+    if(pathname.startsWith("/admin") && role != "admin"){
+        return NextResponse.redirect(new URL("/unauthorized" , req.url))
     }
     return NextResponse.next();
 }
