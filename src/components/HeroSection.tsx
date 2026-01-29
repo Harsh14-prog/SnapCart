@@ -1,7 +1,7 @@
 "use client";
 
 import { ShoppingBasket, Truck, Leaf, Clock } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -29,32 +29,36 @@ const HeroSection = () => {
   useEffect(() => {
     const i = setInterval(
       () => setCurrent((p) => (p + 1) % slides.length),
-      4500
+      3500
     );
     return () => clearInterval(i);
   }, []);
 
   return (
     <div className="relative w-[95%] mx-auto mt-32 h-[80vh] rounded-3xl overflow-hidden shadow-2xl">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={current}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={slides[current].bg}
-            fill
-            alt="bg"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/10" />
-        </motion.div>
-      </AnimatePresence>
+      {/* ✅ FIXED SLIDE BACKGROUND (no unmount = no white flash) */}
+      <div className="absolute inset-0">
+        {slides.map((slide, index) => (
+          <motion.div
+            key={index}
+            initial={false}
+            animate={{ opacity: index === current ? 1 : 0 }}
+            transition={{ duration: 1 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={slide.bg}
+              fill
+              alt="bg"
+              priority={index === 0}
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/10" />
+          </motion.div>
+        ))}
+      </div>
 
+      {/* content (UNCHANGED) */}
       <div className="absolute inset-0 flex items-center justify-center text-white text-center px-6">
         <motion.div
           initial={{ y: 40, opacity: 0 }}
@@ -95,7 +99,7 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* progress bar */}
+      {/* progress bar (UNCHANGED) */}
       <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20">
         <motion.div
           key={current}

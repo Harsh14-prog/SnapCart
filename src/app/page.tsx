@@ -42,7 +42,7 @@ const Home = async () => {
       {user.role === "user" && (
         <>
           <HeroSection />
-          <div className="max-w-7xl mx-auto px-4 mt-12">
+          <div className=" mx-auto px-4 mt-12">
             <UserDashboard />
           </div>
         </>
