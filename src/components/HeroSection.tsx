@@ -1,11 +1,20 @@
 "use client";
 
+import { RootState } from "@/redux/store";
 import { ShoppingBasket, Truck, Leaf, Clock } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const HeroSection = () => {
+
+ const userData = useSelector(
+  (state: RootState) => state.user.userData
+);
+
+// console.log(userData)
+
   const slides = [
     {
       title: "Groceries in 10 Minutes ⚡",
