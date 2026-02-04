@@ -26,7 +26,7 @@ export default function CartPage() {
   const remaining = FREE_DELIVERY_LIMIT - subTotal;
 
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100 pb-28">
+    <div className="relative w-full min-h-screen bg-linear-to-br from-green-50 via-white to-green-100 pb-28">
       <div className="w-[94%] sm:w-[90%] md:w-[80%] mx-auto pt-8">
         {/* HEADER */}
         <Link
