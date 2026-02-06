@@ -5,13 +5,13 @@ import Link from "next/link";
 import React from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "@/redux/store";
+import { RootState, AppDispatch } from "../../../redux/store";
 import Image from "next/image";
 import {
   decreaseQuantity,
   increaseQuantity,
   removeFromCart,
-} from "@/redux/cartSlice";
+} from "../../../redux/cartSlice";
 import { useRouter } from "next/navigation";
 
 export default function CartPage() {

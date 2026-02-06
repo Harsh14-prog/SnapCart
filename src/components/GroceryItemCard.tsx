@@ -4,8 +4,8 @@ import Image from "next/image";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
 import { motion } from "motion/react";
 import { useDispatch } from "react-redux";
-import { addToCart , decreaseQuantity, increaseQuantity } from "@/redux/cartSlice";
-import { AppDispatch, RootState } from "@/redux/store";
+import { addToCart , decreaseQuantity, increaseQuantity } from "../redux/cartSlice";
+import { AppDispatch, RootState } from "../redux/store";
 import { useSelector } from "react-redux";
 
 interface IGrocery {

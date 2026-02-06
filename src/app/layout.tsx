@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Providers from "@/Providers";
-import StoreProvider from "@/redux/StoreProvider";
-import InitUser from "@/InitUser";
+import Providers from "../Providers";
+import StoreProvider from "../redux/StoreProvider";
+import InitUser from "../InitUser";
 
 export const metadata: Metadata = {
   title: "SnapCart 10 Minute Grocerry Delivery App",

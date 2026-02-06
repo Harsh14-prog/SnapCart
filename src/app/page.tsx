@@ -1,13 +1,14 @@
-import { auth } from "@/auth";
-import AdminDashboard from "@/components/AdminDashboard";
-import EditRoleMobile from "@/components/EditRoleMobile";
-import Nav from "@/components/Nav";
-import UserDashboard from "@/components/UserDashboard";
-import DeliveryBoy from "@/components/DeliveryBoy";
-import HeroSection from "@/components/HeroSection";
-import connectdb from "@/lib/db";
-import userModel from "@/models/user.model";
+import { auth } from "../auth";
+import AdminDashboard from "../components/AdminDashboard";
+import EditRoleMobile from "../components/EditRoleMobile";
+import Nav from "../components/Nav";
+import UserDashboard from "../components/UserDashboard";
+import DeliveryBoy from "../components/DeliveryBoy";
+import HeroSection from "../components/HeroSection";
+import connectdb from "../lib/db";
+import userModel from "../models/user.model";
 import { redirect } from "next/navigation";
+import GeoUpdater from "@/components/GeoUpdater";
 
 const Home = async () => {
   await connectdb();
@@ -37,7 +38,7 @@ const Home = async () => {
   return (
     <div className="min-h-screen bg-linear-to-b from-green-50 to-white">
       <Nav user={user} />
-
+      <GeoUpdater userId={user.id}/>
       {/* USER HOME */}
       {user.role === "user" && (
         <>

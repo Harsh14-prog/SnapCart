@@ -5,8 +5,8 @@ import { ArrowLeft, PackageSearch } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import React, { useEffect, useState } from "react";
-import UserOrderCard from "@/components/UserOrderCard";
-import { IUser } from "@/models/user.model";
+import UserOrderCard from "../../../components/UserOrderCard";
+import { IUser } from "../../../models/user.model";
 
 interface IOrder {
   _id?: string;

@@ -1,5 +1,5 @@
-import connectDb from "@/lib/db";
-import Order from "@/models/order.model";
+import connectDb from "../../../../../lib/db";
+import Order from "../../../../../models/order.model";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 

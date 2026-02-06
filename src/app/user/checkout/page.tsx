@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { RootState } from "../../../redux/store";
 import { motion } from "motion/react";
 import {
   ArrowLeft,
@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import axios from "axios";
 
-const CheckOutMap = dynamic(() => import("@/components/CheckoutMap"), {
+const CheckOutMap = dynamic(() => import("../../../components/CheckoutMap"), {
   ssr: false,
 });
 

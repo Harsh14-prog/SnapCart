@@ -19,7 +19,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { signOut } from "next-auth/react";
 import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { RootState } from "../redux/store";
 
 export interface IUser {
   id: string;

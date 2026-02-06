@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { IUser } from "@/models/user.model";
+import { IUser } from "../models/user.model";
 
 interface IOrder {
   _id?: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { RootState } from "@/redux/store";
+import { RootState } from "../redux/store";
 import { ShoppingBasket, Truck, Leaf, Clock } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
@@ -43,9 +43,11 @@ const HeroSection = () => {
     return () => clearInterval(i);
   }, []);
 
+
+
   return (
     <div className="relative w-[95%] mx-auto mt-32 h-[80vh] rounded-3xl overflow-hidden shadow-2xl">
-      {/* ✅ FIXED SLIDE BACKGROUND (no unmount = no white flash) */}
+      
       <div className="absolute inset-0">
         {slides.map((slide, index) => (
           <motion.div

@@ -1,8 +1,8 @@
 import React from "react";
 import HeroSection from "./HeroSection";
 import CategorySlider from "./CategorySlider";
-import connectDb from "@/lib/db";
-import Grocery, { IGrocery } from "@/models/grocery.model";
+import connectDb from "../lib/db";
+import Grocery, { IGrocery } from "../models/grocery.model";
 import GroceryItemCard from "./GroceryItemCard";
 
 async function UserDashboard() {

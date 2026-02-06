@@ -1,7 +1,7 @@
-import { auth } from "@/auth";
-import uploadOnCloudinary from "@/lib/cloudinary";
-import connectdb from "@/lib/db";
-import Grocery from "@/models/grocery.model";
+import { auth } from "../../../../auth";
+import uploadOnCloudinary from "../../../../lib/cloudinary";
+import connectdb from "../../../../lib/db";
+import Grocery from "../../../../models/grocery.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
